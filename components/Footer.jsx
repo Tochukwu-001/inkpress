@@ -8,7 +8,7 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <main className="bg-gray-100 p-3 flex max-lg:flex-col max-lg:gap-5 items-center justify-between">
-      <Link href={"/"} className="flex items-center gap-2 z-50">
+      <Link href={"/"} className="flex items-center gap-2">
         <Image
           src={"/logo.png"}
           alt="logo"
