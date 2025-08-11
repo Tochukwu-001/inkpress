@@ -4,9 +4,13 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { RiMenu3Line } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const { data: session } = useSession();
+
+  console.log(session);
 
   const navItems = [
     {
@@ -22,8 +26,8 @@ const Navbar = () => {
       url: "/contact",
     },
     {
-      name: "Sign In",
-      url: "/auth/signin",
+      name: "Reviews",
+      url: "/reviews",
     },
   ];
 
@@ -51,6 +55,17 @@ const Navbar = () => {
             {item.name}
           </Link>
         ))}
+
+        {session ? (
+          "Log Out"
+        ) : (
+          <Link
+            href={"/auth/signin"}
+            className="text-lg hover:text-yellow-700 hover:underline"
+          >
+            Sign In
+          </Link>
+        )}
       </div>
 
       {/* mobile and tab view */}
@@ -60,7 +75,11 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className={`bg-gray-50 h-dvh overflow-hidden w-full fixed top-0 left-0 lg:hidden ${navOpen ? "block" : "hidden"}`}>
+      <div
+        className={`bg-gray-50 h-dvh overflow-hidden w-full fixed top-0 left-0 lg:hidden ${
+          navOpen ? "block" : "hidden"
+        }`}
+      >
         <div className="flex flex-col items-center gap-16 pt-20">
           {navItems.map((item, index) => (
             <Link key={index} href={item.url} className="text-2xl">
