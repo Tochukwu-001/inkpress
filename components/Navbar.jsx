@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { RiMenu3Line } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -70,15 +70,19 @@ const Navbar = () => {
 
         {session ? (
           <div>
-            <Button
+            <button
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <img src={session?.user?.image} alt={session?.user?.name.slice(0,1).toUpperCase()} />
-            </Button>
+              <img
+                src={session?.user?.image}
+                alt={session?.user?.name.slice(0, 1).toUpperCase()}
+                className="w-10 h-10 rounded-full"
+              />
+            </button>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
@@ -90,9 +94,15 @@ const Navbar = () => {
                 },
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link href={"/profile"}>Profile</Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link href={"/drop-reviews"}>Add your Reviews</Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <button onClick={() => signOut()}>Sign Out</button>
+              </MenuItem>
             </Menu>
           </div>
         ) : (
