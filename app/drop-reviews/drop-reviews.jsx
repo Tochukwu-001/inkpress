@@ -2,11 +2,12 @@
 import React from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { collection, addDoc } from "firebase/firestore"; 
 
-const DropReviews = () => {
+const DropReviews = ({session}) => {
   const initialValues = {
     book: "",
-    reviews: "",
+    review: "",
   };
 
   const formValidation = Yup.object({
@@ -16,8 +17,21 @@ const DropReviews = () => {
       .min(50, "Minimun of 50 characters required"),
   });
 
-  const handleSubmit = () => {
-    console.log("Form Submited");
+  const handleSubmit = async (values) => {
+    try {
+      // create an object that would be sent to the db
+      const reviewData = {
+        author: session?.user?.name,
+        img: session?.user?.image,
+        timestamp: new Date().toLocaleDateString(),
+        ...values
+      }
+      console.log(reviewData);
+      
+    } catch (error) {
+      console.error("Error adding data", error)
+      alert("Oops, an error occurred.")
+    }
   };
 
   return (

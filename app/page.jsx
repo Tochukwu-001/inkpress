@@ -19,13 +19,13 @@ export default function Home() {
 
           <div className="flex max-md:flex-col items-center justify-center gap-10">
             <Link
-              href={"#"}
+              href={"/auth/signin"}
               className="bg-yellow-600 text-white px-10 py-5 rounded-md text-xl font-bold hover:bg-yellow-700 transition-colors duration-300 max-md:w-full text-center"
             >
               Get Started
             </Link>
             <Link
-              href={"#"}
+              href={"/about"}
               className="border border-gray-200 px-10 py-5 text-xl font-bold rounded-md bg-white text-black hover:bg-gray-200 transition-colors duration-300 max-md:w-full text-center"
             >
               Our Story

@@ -8,7 +8,7 @@ const page = async () => {
   const session = await auth();
 
   if (session) {
-    redirect("/");
+    redirect("/drop-reviews");
   }
 
   console.log(session);
