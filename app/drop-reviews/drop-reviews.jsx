@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase.config";
+import { FiLoader } from "react-icons/fi";
 
-const DropReviews = ({session}) => {
+const DropReviews = ({ session }) => {
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     book: "",
     review: "",
@@ -17,20 +20,26 @@ const DropReviews = ({session}) => {
       .min(50, "Minimun of 50 characters required"),
   });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     try {
+      setLoading(true);
       // create an object that would be sent to the db
       const reviewData = {
         author: session?.user?.name,
         img: session?.user?.image,
         timestamp: new Date().toLocaleDateString(),
-        ...values
-      }
-      console.log(reviewData);
-      
+        ...values,
+      };
+
+      const docRef = await addDoc(collection(db, "reviews"), reviewData);
+
+      console.log("Document written with ID: ", docRef.id);
+      resetForm();
     } catch (error) {
-      console.error("Error adding data", error)
-      alert("Oops, an error occurred.")
+      console.error("Error adding data", error);
+      alert("Oops, an error occurred.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,10 +88,15 @@ const DropReviews = ({session}) => {
             </div>
             <div className="flex justify-end">
               <button
+                disabled={loading}
                 type="submit"
                 className="bg-yellow-700 hover:bg-yellow-800 transition-colors duration-300 text-white text-xl rounded-md py-2 px-5"
               >
-                Post Review
+                {loading ? (
+                  <FiLoader className="animate-spin text-2xl text-center" />
+                ) : (
+                  "Post Review"
+                )}
               </button>
             </div>
           </Form>
