@@ -1,39 +1,34 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase.config";
 
 const page = () => {
-  const reviews = [
-    {
-      img: "/bg1.jpg",
-      author: "John Wick",
-      book: "Den of Dragons",
-      review: "I did not enjoy den of dragons so i read love moon",
-      timestamp: "2/4/20205",
-    },
-    {
-      img: "/bg1.jpg",
-      author: "John Wick",
-      book: "Den of Dragons",
-      review:
-        "Recusandae pariatur tempora distinctio voluptates temporibus. Ipsa numquam laudantium dolore accusantium odio magnam ducimus blanditiis autem. Molestias debitis debitis similique nostrum.",
-      timestamp: "2/4/20205",
-    },
-  ];
+  const [reviews, setReviews] = useState([])
 
   const fetchReviews = async () => {
+    const reviewArray = []
     const querySnapshot = await getDocs(collection(db, "reviews"));
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
+      const reviewObject = {
+        id: doc.id,
+        ...doc.data()
+      }
+      console.log(reviewObject);
+      reviewArray.push(reviewObject)
+      
     });
+    console.log(reviewArray);
+    setReviews(reviewArray)
+    
   };
 
   useEffect(() => {
-    fetchReviews();
+    fetchReviews(); 
   }, []);
 
   return (
@@ -56,7 +51,7 @@ const page = () => {
             <div className="flex items-center justify-between">
               <p>{rev.timestamp}</p>
               <Link
-                href={"#"}
+                href={`/reviews/${rev.id}`}
                 className="flex items-center text-sm text-gray-600 hover:text-black transition-all duration-300"
               >
                 Read More
