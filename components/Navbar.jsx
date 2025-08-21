@@ -129,7 +129,7 @@ const Navbar = () => {
       >
         <div className="flex flex-col items-center gap-16 pt-20">
           {navItems.map((item, index) => (
-            <Link key={index} href={item.url} className="text-2xl">
+            <Link onClick={()=> setNavOpen(false)} key={index} href={item.url} className="text-2xl">
               {item.name}
             </Link>
           ))}

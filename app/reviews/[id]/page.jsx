@@ -24,12 +24,28 @@ const singleReview = async (id) => {
 
 const page = async ({ params }) => {
   const perReviews = await singleReview(params.id);
-//   return <p>ID: {params.id}</p>;
-    return (
-      <main>
-        
+  //   return <p>ID: {params.id}</p>;
+  return (
+    <main>
+      <main className="min-h-screen px-5 py-10 max-w-3xl mx-auto bg-gray-50">
+        <div className="bg-white shadow-md rounded-md p-6">
+          <span className="inline-block mb-4 px-3 py-1 bg-yellow-600 text-white text-xs rounded-full">
+            {perReviews.book}
+          </span>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            {perReviews.reviews}
+          </h1>
+          <p className="text-sm text-gray-500 mb-1">By {perReviews.author}</p>
+          <p className="text-xs text-gray-400 mb-6">
+            Posted on {perReviews.timestamp}
+          </p>
+          <p className="text-gray-700 leading-7 whitespace-pre-line">
+            {perReviews.body}
+          </p>
+        </div>
       </main>
-    );
+    </main>
+  );
 };
 
 export default page;
