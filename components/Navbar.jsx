@@ -129,10 +129,67 @@ const Navbar = () => {
       >
         <div className="flex flex-col items-center gap-16 pt-20">
           {navItems.map((item, index) => (
-            <Link onClick={()=> setNavOpen(false)} key={index} href={item.url} className="text-2xl">
+            <Link
+              onClick={() => setNavOpen(false)}
+              key={index}
+              href={item.url}
+              className="text-2xl"
+            >
               {item.name}
             </Link>
           ))}
+          {session ? (
+            <div>
+              <button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <img
+                  src={session?.user?.image}
+                  alt={session?.user?.name.slice(0, 1).toUpperCase()}
+                  className="w-10 h-10 rounded-full"
+                />
+              </button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                slotProps={{
+                  list: {
+                    "aria-labelledby": "basic-button",
+                  },
+                }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <Link href={"/profile"} onClick={() => setNavOpen(false)}>
+                    Profile
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link
+                    onClick={() => setNavOpen(false)}
+                    href={"/drop-reviews"}
+                  >
+                    Add your Reviews
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <button onClick={() => signOut()}>Sign Out</button>
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Link
+              href={"/auth/signin"}
+              className="text-lg hover:text-yellow-700 hover:underline"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
     </nav>
