@@ -185,7 +185,7 @@ const Navbar = () => {
           ) : (
             <Link
               href={"/auth/signin"}
-              className="text-lg hover:text-yellow-700 hover:underline"
+              className="hover:text-yellow-700 hover:underline text-2xl"
             >
               Sign In
             </Link>

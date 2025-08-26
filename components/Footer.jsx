@@ -20,7 +20,7 @@ const Footer = () => {
       </Link>
 
       <div className="flex max-lg:flex-col items-center gap-5">
-        <Link href={"#"} className="text-sm hover:underline">About Us</Link>
+        <Link href={"/about"} className="text-sm hover:underline">About Us</Link>
         <Link href={"#"} className="text-sm hover:underline">Chat with Us</Link>
         <Link href={"#"} className="text-sm hover:underline">Privacy Policy</Link>
         <Link href={"#"} className="text-sm hover:underline">Terms of Service</Link>
