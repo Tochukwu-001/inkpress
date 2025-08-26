@@ -24,7 +24,7 @@ const singleReview = async (id) => {
 
 const page = async ({ params }) => {
   const perReviews = await singleReview(params.id);
-  console.log(perReviews);
+  // console.log(perReviews);
   
   //   return <p>ID: {params.id}</p>;
   return (
