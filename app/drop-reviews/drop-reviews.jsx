@@ -54,7 +54,7 @@ const DropReviews = ({ session }) => {
       const docRef = await addDoc(collection(db, "reviews"), reviewData);
       handleOpen()
 
-      console.log("Document written with ID: ", docRef.id);
+      // console.log("Document written with ID: ", docRef.id);
       resetForm();
     } catch (error) {
       console.error("Error adding data", error);

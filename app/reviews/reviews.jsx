@@ -19,10 +19,10 @@ const Reviews = ({ session }) => {
         id: doc.id,
         ...doc.data(),
       };
-      console.log(reviewObject);
+      // console.log(reviewObject);
       reviewArray.push(reviewObject);
     });
-    console.log(reviewArray);
+    // console.log(reviewArray);
     setReviews(reviewArray);
   };
 

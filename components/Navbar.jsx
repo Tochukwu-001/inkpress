@@ -22,7 +22,7 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  console.log(session);
+  // console.log(session);
 
   const navItems = [
     {
